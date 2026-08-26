@@ -6,7 +6,7 @@
 - Phase 1 — Architecture Planning: Complete
 - Phase 2 — Development Roadmap: Complete
 - Phase 3 — Repository Documentation: In Progress
-- Phase 4 — Implementation: Not Started
+- Phase 4 — Implementation: In Progress
 
 ---
 
@@ -24,14 +24,14 @@ Create the initial repository structure and project documentation.
 - [x] Create initial documentation files.
 - [x] Create `PROJECT_SPEC.md`.
 - [x] Create `ARCHITECTURE.md`.
-- [ ] Create `TASKS.md`.
-- [ ] Create `DECISIONS.md`.
-- [ ] Create `CONTRIBUTING.md`.
-- [ ] Create initial `README.md`.
-- [ ] Configure `.gitignore`.
-- [ ] Review all documentation.
-- [ ] Make the initial commit.
-- [ ] Push the initial commit to GitHub.
+- [x] Create `TASKS.md`.
+- [x] Create `DECISIONS.md`.
+- [x] Create `CONTRIBUTING.md`.
+- [x] Create initial `README.md`.
+- [x] Configure `.gitignore`.
+- [x] Review all documentation.
+- [x] Make the initial commit.
+- [x] Push the initial commit to GitHub.
 
 ## Definition of Done
 
@@ -49,34 +49,34 @@ Create the frontend and backend foundations and verify successful communication 
 
 ### Frontend
 
-- [ ] Initialize React application.
-- [ ] Configure TypeScript.
-- [ ] Configure Vite.
-- [ ] Configure Tailwind CSS.
-- [ ] Create basic application layout.
+- [x] Initialize React application.
+- [x] Configure TypeScript.
+- [x] Configure Vite.
+- [x] Configure Tailwind CSS.
+- [x] Create basic application layout.
 
 ### Backend
 
-- [ ] Initialize Python backend.
-- [ ] Configure FastAPI.
-- [ ] Create application entry point.
-- [ ] Create basic configuration structure.
-- [ ] Create health-check endpoint.
+- [x] Initialize Python backend.
+- [x] Configure FastAPI.
+- [x] Create application entry point.
+- [x] Create basic configuration structure.
+- [x] Create health-check endpoint.
 
 ### Integration
 
-- [ ] Configure frontend API communication.
-- [ ] Call backend from frontend.
-- [ ] Display backend response.
-- [ ] Handle basic API errors.
+- [x] Configure frontend API communication.
+- [x] Call backend from frontend.
+- [x] Display backend response.
+- [x] Handle basic API errors.
 
 ## Acceptance Criteria
 
-- [ ] Frontend runs successfully.
-- [ ] Backend runs successfully.
-- [ ] Frontend can communicate with backend.
-- [ ] Health-check endpoint works.
-- [ ] Basic errors are handled.
+- [x] Frontend runs successfully.
+- [x] Backend runs successfully.
+- [x] Frontend can communicate with backend.
+- [x] Health-check endpoint works.
+- [x] Basic errors are handled.
 
 ---
 
@@ -88,25 +88,25 @@ Allow users to enter source code and select a programming language.
 
 ## Tasks
 
-- [ ] Install and configure Monaco Editor.
-- [ ] Add Python support.
-- [ ] Add C++ support.
-- [ ] Add Java support.
-- [ ] Create language selector.
-- [ ] Create Analyze button.
-- [ ] Add empty-code validation.
-- [ ] Send selected language and code to backend.
+- [x] Install and configure Monaco Editor.
+- [x] Add Python support.
+- [x] Add C++ support.
+- [x] Add Java support.
+- [x] Create language selector.
+- [x] Create Analyze button.
+- [x] Add empty-code validation.
+- [x] Send selected language and code to backend.
 
 ## Acceptance Criteria
 
 The user can:
 
-- [ ] Select Python.
-- [ ] Select C++.
-- [ ] Select Java.
-- [ ] Paste or edit code.
-- [ ] See language-appropriate syntax highlighting.
-- [ ] Submit code for analysis.
+- [x] Select Python.
+- [x] Select C++.
+- [x] Select Java.
+- [x] Paste or edit code.
+- [x] See language-appropriate syntax highlighting.
+- [x] Submit code for analysis.
 
 ---
 
@@ -369,8 +369,8 @@ The project is:
 
 # Current Milestone
 
-## Milestone 1 — Repository Foundation
+## Milestone 4 — Analysis Pipeline
 
 ### Current Next Task
 
-Create `DECISIONS.md`, `CONTRIBUTING.md`, `README.md`, and `.gitignore`, then review the documentation and make the first Git commit.
+Implement real deterministic findings in the Python analyzer, starting with nested-loop detection.
