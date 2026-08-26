@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LanguageSelector } from "./components/LanguageSelector";
+import { CodeEditor } from "./components/CodeEditor";
 import { ResultsPanel } from "./components/ResultsPanel";
 import { analyzeCode } from "./api/analyze";
 import type { AnalyzeResponse, Language } from "./types/analysis";
@@ -41,12 +42,7 @@ export default function App() {
           <LanguageSelector value={language} onChange={setLanguage} />
         </div>
 
-        <textarea
-          className="w-full h-64 border border-gray-300 rounded-md p-3 font-mono text-sm"
-          placeholder="Paste your code here..."
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
+        <CodeEditor language={language} value={code} onChange={setCode} />
 
         <button
           onClick={handleAnalyze}
@@ -67,3 +63,4 @@ export default function App() {
     </div>
   );
 }
+
