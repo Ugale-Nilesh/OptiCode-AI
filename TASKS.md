@@ -129,7 +129,7 @@ Create the common analysis pipeline and deterministic analysis layer.
 
 - [x] Detect nested loops.
 - [x] Detect selected repeated operations.
-- [ ] Detect selected redundant calculations.
+- [x] Detect selected redundant calculations.
 
 ### C++ Analyzer
 
@@ -145,18 +145,18 @@ Create the common analysis pipeline and deterministic analysis layer.
 
 ### Result Structure
 
-- [ ] Return structured deterministic findings.
-- [ ] Include finding type.
-- [ ] Include severity.
-- [ ] Include confidence.
-- [ ] Include evidence or location where practical.
+- [x] Return structured deterministic findings.
+- [x] Include finding type.
+- [x] Include severity.
+- [x] Include confidence.
+- [x] Include evidence or location where practical.
 
 ## Acceptance Criteria
 
-- [ ] Python code passes through the common analysis pipeline.
-- [ ] C++ code passes through the common analysis pipeline.
-- [ ] Java code passes through the common analysis pipeline.
-- [ ] Structured deterministic findings are returned.
+- [x] Python code passes through the common analysis pipeline.
+- [x] C++ code passes through the common analysis pipeline.
+- [x] Java code passes through the common analysis pipeline.
+- [x] Structured deterministic findings are returned.
 
 ---
 
@@ -373,4 +373,4 @@ The project is:
 
 ### Current Next Task
 
-Design and implement redundant-calculation detection for the Python analyzer (the remaining open item in Milestone 4's analyzer checklist).
+Milestone 4's deterministic rule-writing is essentially complete. Remaining C++/Java items (inefficient patterns, collection usage, algorithmic improvements) are open-ended enough to be better served by Milestone 5's AI reasoning layer. Next: begin Milestone 5 (AI Service) - create the AI service interface and provider integration.
