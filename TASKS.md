@@ -120,26 +120,26 @@ Create the common analysis pipeline and deterministic analysis layer.
 
 ### Core Analysis Architecture
 
-- [ ] Create analyzer base interface.
-- [ ] Create common finding schema.
-- [ ] Create analysis service.
-- [ ] Route requests to the correct language analyzer.
+- [x] Create analyzer base interface.
+- [x] Create common finding schema.
+- [x] Create analysis service.
+- [x] Route requests to the correct language analyzer.
 
 ### Python Analyzer
 
-- [ ] Detect nested loops.
-- [ ] Detect selected repeated operations.
+- [x] Detect nested loops.
+- [x] Detect selected repeated operations.
 - [ ] Detect selected redundant calculations.
 
 ### C++ Analyzer
 
-- [ ] Detect nested loops.
+- [x] Detect nested loops.
 - [ ] Detect selected repeated operations.
 - [ ] Detect selected inefficient patterns.
 
 ### Java Analyzer
 
-- [ ] Detect nested loops.
+- [x] Detect nested loops.
 - [ ] Detect selected repeated operations.
 - [ ] Detect selected inefficient patterns.
 
@@ -373,4 +373,4 @@ The project is:
 
 ### Current Next Task
 
-Implement real deterministic findings in the Python analyzer, starting with nested-loop detection.
+Add repeated-operation detection (e.g. sorting inside a loop) to the C++ and Java analyzers.
