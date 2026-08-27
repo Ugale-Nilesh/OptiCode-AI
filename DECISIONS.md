@@ -440,3 +440,24 @@ Before changing a major decision, evaluate:
 5. Whether the current decision should remain for Version 1.
 
 Major decision changes should be documented with a new decision entry rather than silently modifying previous project assumptions.
+
+---
+
+## D-018 — AI Provider Selection: Google Gemini
+
+### Decision
+
+The MVP will use Google Gemini as the AI reasoning provider, accessed via the official `google-genai` Python SDK. Provider-specific logic will be isolated behind a small interface (per D-010) so an alternative provider (e.g. OpenAI or Anthropic) could be added later without rewriting the analysis pipeline. Gemini is the only implemented provider for the MVP.
+
+### Reason
+
+The project has a strict budget of zero cost for the MVP. Gemini's Flash and Flash-Lite models remain available on Google AI Studio's free tier with no billing required, unlike providers whose usable models require a paid plan. This keeps the AI reasoning layer fully usable without any API spend.
+
+### Implementation Notes
+
+- Default model: `gemini-2.5-flash-lite`, chosen for its free-tier daily quota. Configurable via an environment variable without code changes.
+- Because the MVP already restricts input to single code snippets/functions (D-001), no dedicated code-chunking system is needed; a simple length guard prevents oversized requests instead.
+
+### Status
+
+Accepted.

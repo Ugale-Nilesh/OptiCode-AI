@@ -172,7 +172,7 @@ For more details, see `ARCHITECTURE.md`.
 
 - Language-specific analyzers.
 - Deterministic pattern detection.
-- AI reasoning layer.
+- AI reasoning layer (Google Gemini).
 
 ---
 
