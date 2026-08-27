@@ -134,13 +134,13 @@ Create the common analysis pipeline and deterministic analysis layer.
 ### C++ Analyzer
 
 - [x] Detect nested loops.
-- [ ] Detect selected repeated operations.
+- [x] Detect selected repeated operations.
 - [ ] Detect selected inefficient patterns.
 
 ### Java Analyzer
 
 - [x] Detect nested loops.
-- [ ] Detect selected repeated operations.
+- [x] Detect selected repeated operations.
 - [ ] Detect selected inefficient patterns.
 
 ### Result Structure
@@ -373,4 +373,4 @@ The project is:
 
 ### Current Next Task
 
-Add repeated-operation detection (e.g. sorting inside a loop) to the C++ and Java analyzers.
+Design and implement redundant-calculation detection for the Python analyzer (the remaining open item in Milestone 4's analyzer checklist).
