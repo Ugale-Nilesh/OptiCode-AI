@@ -170,41 +170,41 @@ Integrate AI-powered reasoning and optimization into the analysis pipeline.
 
 ### AI Service
 
-- [ ] Create AI service interface.
-- [ ] Configure AI provider integration.
-- [ ] Keep provider-specific logic isolated.
+- [x] Create AI service interface.
+- [x] Configure AI provider integration.
+- [x] Keep provider-specific logic isolated.
 
 ### AI Analysis
 
-- [ ] Send original code.
-- [ ] Send selected language.
-- [ ] Send deterministic findings.
-- [ ] Request structured output.
-- [ ] Generate code summary.
-- [ ] Generate issue explanations.
-- [ ] Generate optimization suggestions.
-- [ ] Estimate time complexity.
-- [ ] Estimate space complexity.
-- [ ] Generate optimized code when appropriate.
+- [x] Send original code.
+- [x] Send selected language.
+- [x] Send deterministic findings.
+- [x] Request structured output.
+- [x] Generate code summary.
+- [x] Generate issue explanations.
+- [x] Generate optimization suggestions.
+- [x] Estimate time complexity.
+- [x] Estimate space complexity.
+- [x] Generate optimized code when appropriate.
 - [ ] Explain trade-offs.
 
 ### Validation
 
 - [ ] Validate AI output.
-- [ ] Handle malformed AI responses.
-- [ ] Handle AI service failures.
+- [x] Handle malformed AI responses.
+- [x] Handle AI service failures.
 
 ## Acceptance Criteria
 
 The system can return:
 
-- [ ] Code summary.
-- [ ] Complexity analysis.
-- [ ] Detected findings.
-- [ ] AI-inferred findings.
-- [ ] Optimization suggestions.
-- [ ] Optimized code when appropriate.
-- [ ] Assumptions and limitations.
+- [x] Code summary.
+- [x] Complexity analysis.
+- [x] Detected findings.
+- [x] AI-inferred findings.
+- [x] Optimization suggestions.
+- [x] Optimized code when appropriate.
+- [x] Assumptions and limitations.
 
 ---
 
@@ -373,4 +373,4 @@ The project is:
 
 ### Current Next Task
 
-Milestone 4's deterministic rule-writing is essentially complete. Remaining C++/Java items (inefficient patterns, collection usage, algorithmic improvements) are open-ended enough to be better served by Milestone 5's AI reasoning layer. Next: begin Milestone 5 (AI Service) - create the AI service interface and provider integration.
+Milestone 5's AI reasoning layer (Google Gemini) is live and working end-to-end. Deeper AI-output validation and trade-off explanations are deferred to Milestone 8 (Robustness). Next: begin Milestone 6 - build the Results Interface to display inferred findings, suggestions, optimized code, and comparison in the frontend.
