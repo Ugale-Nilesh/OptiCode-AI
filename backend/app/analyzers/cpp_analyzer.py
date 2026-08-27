@@ -4,6 +4,7 @@ from app.analyzers.base import BaseAnalyzer
 from app.schemas.analysis import Finding, ResultStatus, Severity
 
 _LOOP_RE = re.compile(r"\b(for|while)\s*\(")
+_SORT_RE = re.compile(r"\bstd::sort\s*\(|(?<![\w.])sort\s*\(")
 
 
 def _line_at(code: str, index: int) -> int:
@@ -78,6 +79,7 @@ class CppAnalyzer(BaseAnalyzer):
             return None
 
         loops = _find_loops(code)
+
         for outer in loops:
             outer_line = outer["line"]
             for inner in loops:
@@ -100,4 +102,24 @@ class CppAnalyzer(BaseAnalyzer):
                         )
                     )
                     break
+
+        for loop in loops:
+            for m in _SORT_RE.finditer(code, loop["body_start"], loop["body_end"]):
+                sort_line = _line_at(code, m.start())
+                findings.append(
+                    Finding(
+                        type="repeated_sort",
+                        severity=Severity.medium,
+                        confidence=ResultStatus.detected,
+                        location=f"line {sort_line}",
+                        description=(
+                            "A sort operation is being performed inside a loop. "
+                            "Sorting repeatedly on each iteration is usually "
+                            "unnecessary and can often be moved outside the loop "
+                            "or done once before iterating."
+                        ),
+                        evidence=evidence_for(sort_line),
+                    )
+                )
+
         return findings

@@ -4,6 +4,7 @@ from app.analyzers.base import BaseAnalyzer
 from app.schemas.analysis import Finding, ResultStatus, Severity
 
 _LOOP_RE = re.compile(r"\b(for|while)\s*\(")
+_SORT_RE = re.compile(r"\b(Collections\.sort|Arrays\.sort)\s*\(")
 
 
 def _line_at(code: str, index: int) -> int:
@@ -51,14 +52,7 @@ def _find_loops(code: str):
         if paren_close is None:
             continue
         body_start, body_end = _find_body_range(code, paren_close + 1)
-        loops.append(
-            {
-                "start": m.start(),
-                "line": _line_at(code, m.start()),
-                "body_start": body_start,
-                "body_end": body_end,
-            }
-        )
+        loops.append({"start": m.start(), "line": _line_at(code, m.start()), "body_start": body_start, "body_end": body_end})
     return loops
 
 
@@ -78,26 +72,19 @@ class JavaAnalyzer(BaseAnalyzer):
             return None
 
         loops = _find_loops(code)
+
         for outer in loops:
             outer_line = outer["line"]
             for inner in loops:
                 if inner is outer:
                     continue
                 if outer["body_start"] < inner["start"] < outer["body_end"]:
-                    findings.append(
-                        Finding(
-                            type="nested_loop",
-                            severity=Severity.medium,
-                            confidence=ResultStatus.detected,
-                            location=f"line {outer_line}",
-                            description=(
-                                "This loop contains another loop nested inside it. "
-                                "Nested loops often lead to higher time complexity "
-                                "(e.g. O(n^2) or worse) and may indicate an "
-                                "opportunity to restructure the logic."
-                            ),
-                            evidence=evidence_for(outer_line),
-                        )
-                    )
+                    findings.append(Finding(type="nested_loop", severity=Severity.medium, confidence=ResultStatus.detected, location=f"line {outer_line}", description="This loop contains another loop nested inside it. Nested loops often lead to higher time complexity (e.g. O(n^2) or worse) and may indicate an opportunity to restructure the logic.", evidence=evidence_for(outer_line)))
                     break
+
+        for loop in loops:
+            for m in _SORT_RE.finditer(code, loop["body_start"], loop["body_end"]):
+                sort_line = _line_at(code, m.start())
+                findings.append(Finding(type="repeated_sort", severity=Severity.medium, confidence=ResultStatus.detected, location=f"line {sort_line}", description="A sort operation is being performed inside a loop. Sorting repeatedly on each iteration is usually unnecessary and can often be moved outside the loop or done once before iterating.", evidence=evidence_for(sort_line)))
+
         return findings
