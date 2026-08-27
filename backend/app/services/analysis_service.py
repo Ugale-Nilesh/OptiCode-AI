@@ -1,4 +1,4 @@
-﻿from fastapi import HTTPException
+from fastapi import HTTPException
 from app.schemas.analysis import (
     AnalyzeRequest, AnalyzeResponse, Complexity, ComplexityEstimate, ResultStatus,
 )
@@ -29,12 +29,25 @@ def run_analysis(request: AnalyzeRequest) -> AnalyzeResponse:
 
     inferred_findings, suggestions, optimized_code, comparison = [], [], None, []
 
+    if detected_findings:
+        summary = (
+            f"Analyzed {request.language.value} code "
+            f"({len(request.code.splitlines())} lines). "
+            f"Found {len(detected_findings)} deterministic finding(s) below. "
+            "AI-powered reasoning, complexity estimation, and optimization "
+            "suggestions are not implemented yet."
+        )
+    else:
+        summary = (
+            f"Analyzed {request.language.value} code "
+            f"({len(request.code.splitlines())} lines). "
+            "No deterministic findings detected by the current (limited) rule set. "
+            "AI-powered reasoning, complexity estimation, and optimization "
+            "suggestions are not implemented yet."
+        )
+
     return AnalyzeResponse(
-        summary=(
-            f"Placeholder analysis for {request.language.value} code "
-            f"({len(request.code.splitlines())} lines). Mock output from the "
-            "foundational skeleton - deterministic and AI analysis are not implemented yet."
-        ),
+        summary=summary,
         detected_findings=detected_findings,
         inferred_findings=inferred_findings,
         complexity=Complexity(
@@ -44,6 +57,6 @@ def run_analysis(request: AnalyzeRequest) -> AnalyzeResponse:
         suggestions=suggestions,
         optimized_code=optimized_code,
         comparison=comparison,
-        assumptions=["This is placeholder output; no real analysis has run yet."],
-        limitations=["Deterministic analyzers and AI reasoning are not yet implemented."],
+        assumptions=["Deterministic analysis currently covers a limited rule set (e.g. nested loops)."],
+        limitations=["AI reasoning, complexity estimation, and optimization suggestions are not yet implemented."],
     )

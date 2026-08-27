@@ -30,8 +30,24 @@ export function ResultsPanel({ result }: { result: AnalyzeResponse }) {
         {result.detected_findings.length === 0 ? (
           <p className="text-sm text-gray-500">None.</p>
         ) : (
-          <ul className="list-disc list-inside text-sm">
-            {result.detected_findings.map((f, i) => <li key={i}>{f.description}</li>)}
+          <ul className="space-y-3">
+            {result.detected_findings.map((f, i) => (
+              <li key={i} className="text-sm border border-gray-200 rounded-md p-3 bg-white">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-medium text-gray-800">{f.type.replace(/_/g, " ")}</span>
+                  <span className="text-xs text-gray-500">
+                    {f.severity} severity - {f.confidence}
+                    {f.location ? ` - ${f.location}` : ""}
+                  </span>
+                </div>
+                <p className="text-gray-700">{f.description}</p>
+                {f.evidence && (
+                  <code className="block mt-2 text-xs bg-gray-100 rounded px-2 py-1 font-mono">
+                    {f.evidence}
+                  </code>
+                )}
+              </li>
+            ))}
           </ul>
         )}
       </div>
