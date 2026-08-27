@@ -1,4 +1,5 @@
 import ast
+from collections import defaultdict
 from typing import List, Optional
 from app.analyzers.base import BaseAnalyzer
 from app.schemas.analysis import Finding, ResultStatus, Severity
@@ -15,6 +16,17 @@ def _is_sort_call(node: ast.AST) -> bool:
     if isinstance(func, ast.Name) and func.id == "sorted":
         return True
     return False
+
+
+def _collect_calls_excluding_nested_loops(node: ast.AST) -> List[ast.Call]:
+    calls: List[ast.Call] = []
+    for child in ast.iter_child_nodes(node):
+        if isinstance(child, ast.Call):
+            calls.append(child)
+        if isinstance(child, _LOOP_TYPES):
+            continue
+        calls.extend(_collect_calls_excluding_nested_loops(child))
+    return calls
 
 
 class PythonAnalyzer(BaseAnalyzer):
@@ -83,5 +95,34 @@ class PythonAnalyzer(BaseAnalyzer):
                             evidence=evidence_for(inner.lineno),
                         )
                     )
+
+            own_calls = _collect_calls_excluding_nested_loops(node)
+            groups = defaultdict(list)
+            for call in own_calls:
+                try:
+                    key = ast.unparse(call)
+                except Exception:
+                    continue
+                groups[key].append(call)
+
+            for key, calls in groups.items():
+                if len(calls) < 2:
+                    continue
+                first = min(calls, key=lambda c: c.lineno)
+                findings.append(
+                    Finding(
+                        type="redundant_calculation",
+                        severity=Severity.low,
+                        confidence=ResultStatus.detected,
+                        location=f"line {first.lineno}",
+                        description=(
+                            f"The expression '{key}' is computed more than once "
+                            "inside this loop's body. If this call has no side "
+                            "effects, computing it once and reusing the result "
+                            "may avoid unnecessary repeated work."
+                        ),
+                        evidence=evidence_for(first.lineno),
+                    )
+                )
 
         return findings
