@@ -5,6 +5,7 @@ from app.schemas.analysis import (
 from app.analyzers.python_analyzer import PythonAnalyzer
 from app.analyzers.cpp_analyzer import CppAnalyzer
 from app.analyzers.java_analyzer import JavaAnalyzer
+from app.services.ai_service import get_ai_analysis
 
 _ANALYZERS = {
     "python": PythonAnalyzer(),
@@ -27,36 +28,44 @@ def run_analysis(request: AnalyzeRequest) -> AnalyzeResponse:
 
     detected_findings = analyzer.analyze(request.code)
 
-    inferred_findings, suggestions, optimized_code, comparison = [], [], None, []
+    ai_result, ai_limitation = get_ai_analysis(request.code, request.language.value, detected_findings)
 
-    if detected_findings:
-        summary = (
-            f"Analyzed {request.language.value} code "
-            f"({len(request.code.splitlines())} lines). "
-            f"Found {len(detected_findings)} deterministic finding(s) below. "
-            "AI-powered reasoning, complexity estimation, and optimization "
-            "suggestions are not implemented yet."
-        )
+    assumptions = ["Deterministic analysis currently covers a limited rule set (e.g. nested loops)."]
+    limitations = []
+
+    if ai_result is not None:
+        inferred_findings = ai_result.inferred_findings
+        suggestions = ai_result.suggestions
+        optimized_code = ai_result.optimized_code
+        comparison = ai_result.comparison
+        time_complexity = ai_result.time_complexity
+        space_complexity = ai_result.space_complexity
+        ai_summary_part = ai_result.code_summary
     else:
-        summary = (
-            f"Analyzed {request.language.value} code "
-            f"({len(request.code.splitlines())} lines). "
-            "No deterministic findings detected by the current (limited) rule set. "
-            "AI-powered reasoning, complexity estimation, and optimization "
-            "suggestions are not implemented yet."
-        )
+        inferred_findings, suggestions, optimized_code, comparison = [], [], None, []
+        time_complexity = ComplexityEstimate(value="Unknown", status=ResultStatus.unknown)
+        space_complexity = ComplexityEstimate(value="Unknown", status=ResultStatus.unknown)
+        ai_summary_part = ""
+        limitations.append(ai_limitation or "AI-powered reasoning was not available for this request.")
+
+    finding_count = len(detected_findings)
+    if finding_count:
+        deterministic_part = f"Found {finding_count} deterministic finding(s) below."
+    else:
+        deterministic_part = "No deterministic findings detected by the current (limited) rule set."
+
+    summary = f"Analyzed {request.language.value} code ({len(request.code.splitlines())} lines). {deterministic_part}"
+    if ai_summary_part:
+        summary += f" {ai_summary_part}"
 
     return AnalyzeResponse(
         summary=summary,
         detected_findings=detected_findings,
         inferred_findings=inferred_findings,
-        complexity=Complexity(
-            time=ComplexityEstimate(value="Unknown", status=ResultStatus.unknown),
-            space=ComplexityEstimate(value="Unknown", status=ResultStatus.unknown),
-        ),
+        complexity=Complexity(time=time_complexity, space=space_complexity),
         suggestions=suggestions,
         optimized_code=optimized_code,
         comparison=comparison,
-        assumptions=["Deterministic analysis currently covers a limited rule set (e.g. nested loops)."],
-        limitations=["AI reasoning, complexity estimation, and optimization suggestions are not yet implemented."],
+        assumptions=assumptions,
+        limitations=limitations,
     )
