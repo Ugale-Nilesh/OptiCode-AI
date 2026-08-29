@@ -58,7 +58,7 @@ export default function App() {
           </p>
         )}
 
-        {result && <ResultsPanel result={result} />}
+        {result && <ResultsPanel result={result} originalCode={code} />}
       </div>
     </div>
   );

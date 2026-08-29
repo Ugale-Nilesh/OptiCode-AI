@@ -39,9 +39,15 @@ _RESPONSE_SCHEMA = {
         "time_complexity": {"type": "string"},
         "space_complexity": {"type": "string"},
         "optimized_code": {"type": "string"},
+        "optimized_time_complexity": {"type": "string"},
+        "optimized_space_complexity": {"type": "string"},
+        "optimization_explanation": {"type": "string"},
         "comparison": {"type": "array", "items": {"type": "string"}},
     },
-    "required": ["code_summary", "inferred_findings", "suggestions", "time_complexity", "space_complexity", "comparison"],
+    "required": [
+        "code_summary", "inferred_findings", "suggestions",
+        "time_complexity", "space_complexity", "comparison",
+    ],
 }
 
 
@@ -65,8 +71,9 @@ Provide:
 - A brief, plain-English summary of what the code does.
 - Any additional issues you can infer beyond the deterministic findings (empty list if none).
 - Optimization suggestions, each with the issue, why it matters, the suggested improvement, and the expected effect. Do not claim specific performance numbers (e.g. "50% faster") without measurement -- describe expected complexity or work-reduction improvements instead.
-- Estimated time and space complexity in Big-O notation (e.g. "O(n)"), or "Unknown" if you cannot estimate confidently.
-- Optimized code ONLY if a genuine improvement is justified; otherwise leave it empty and say so in comparison.
+- Estimated time and space complexity of the ORIGINAL code in Big-O notation (e.g. "O(n)"), or "Unknown" if you cannot estimate confidently.
+- Optimized code ONLY if a genuine improvement is justified; otherwise leave optimized_code, optimized_time_complexity, optimized_space_complexity, and optimization_explanation empty.
+- If you do provide optimized code, also estimate ITS time and space complexity, and write a short optimization_explanation covering why the change helps and what improvement is expected.
 - A short list of the most important differences between original and optimized code, if any.
 
 Respond only with JSON matching the provided schema."""
@@ -118,21 +125,24 @@ class GeminiProvider(AIProvider):
             for s in data.get("suggestions", [])
         ]
 
-        time_value = data.get("time_complexity") or "Unknown"
-        space_value = data.get("space_complexity") or "Unknown"
+        def _complexity(value: str | None) -> ComplexityEstimate:
+            v = value or "Unknown"
+            return ComplexityEstimate(
+                value=v,
+                status=ResultStatus.unknown if v == "Unknown" else ResultStatus.estimated,
+            )
+
+        optimized_code = data.get("optimized_code") or None
 
         return AIAnalysisResult(
             code_summary=data.get("code_summary", ""),
             inferred_findings=inferred_findings,
             suggestions=suggestions,
-            time_complexity=ComplexityEstimate(
-                value=time_value,
-                status=ResultStatus.unknown if time_value == "Unknown" else ResultStatus.estimated,
-            ),
-            space_complexity=ComplexityEstimate(
-                value=space_value,
-                status=ResultStatus.unknown if space_value == "Unknown" else ResultStatus.estimated,
-            ),
-            optimized_code=data.get("optimized_code") or None,
+            time_complexity=_complexity(data.get("time_complexity")),
+            space_complexity=_complexity(data.get("space_complexity")),
+            optimized_code=optimized_code,
             comparison=data.get("comparison", []),
+            optimized_time_complexity=_complexity(data.get("optimized_time_complexity")) if optimized_code else None,
+            optimized_space_complexity=_complexity(data.get("optimized_space_complexity")) if optimized_code else None,
+            optimization_explanation=data.get("optimization_explanation") or None,
         )

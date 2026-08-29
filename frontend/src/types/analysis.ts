@@ -1,4 +1,4 @@
-﻿export type Language = "python" | "cpp" | "java";
+export type Language = "python" | "cpp" | "java";
 export type ResultStatus = "detected" | "ai_inferred" | "estimated" | "unknown" | "not_measured";
 export type Severity = "low" | "medium" | "high";
 
@@ -36,6 +36,8 @@ export interface AnalyzeResponse {
   complexity: Complexity;
   suggestions: Suggestion[];
   optimized_code: string | null;
+  optimized_complexity: Complexity | null;
+  optimization_explanation: string | null;
   comparison: string[];
   assumptions: string[];
   limitations: string[];

@@ -1,4 +1,4 @@
-﻿from enum import Enum
+from enum import Enum
 from typing import List, Optional
 from pydantic import BaseModel, Field
 
@@ -62,6 +62,8 @@ class AnalyzeResponse(BaseModel):
     complexity: Complexity
     suggestions: List[Suggestion] = []
     optimized_code: Optional[str] = None
+    optimized_complexity: Optional[Complexity] = None
+    optimization_explanation: Optional[str] = None
     comparison: List[str] = []
     assumptions: List[str] = []
     limitations: List[str] = []

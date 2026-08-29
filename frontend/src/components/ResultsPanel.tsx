@@ -1,4 +1,5 @@
 import type { AnalyzeResponse, Finding, Suggestion } from "../types/analysis";
+import { CodeComparison } from "./CodeComparison";
 
 function FindingCard({ finding }: { finding: Finding }) {
   return (
@@ -49,7 +50,12 @@ function SuggestionCard({ suggestion }: { suggestion: Suggestion }) {
   );
 }
 
-export function ResultsPanel({ result }: { result: AnalyzeResponse }) {
+interface Props {
+  result: AnalyzeResponse;
+  originalCode: string;
+}
+
+export function ResultsPanel({ result, originalCode }: Props) {
   return (
     <div className="mt-6 space-y-4 border border-gray-200 rounded-md p-4 bg-gray-50">
       <div>
@@ -89,17 +95,14 @@ export function ResultsPanel({ result }: { result: AnalyzeResponse }) {
       </div>
 
       {result.optimized_code && (
-        <div>
-          <h3 className="font-semibold text-sm text-gray-700">Optimized Code</h3>
-          <pre className="mt-1 text-xs bg-gray-900 text-gray-100 rounded-md p-3 overflow-x-auto">
-            <code>{result.optimized_code}</code>
-          </pre>
-          {result.comparison.length > 0 && (
-            <ul className="list-disc list-inside text-sm text-gray-600 mt-2">
-              {result.comparison.map((c, i) => <li key={i}>{c}</li>)}
-            </ul>
-          )}
-        </div>
+        <CodeComparison
+          originalCode={originalCode}
+          optimizedCode={result.optimized_code}
+          originalComplexity={result.complexity}
+          optimizedComplexity={result.optimized_complexity}
+          explanation={result.optimization_explanation}
+          comparison={result.comparison}
+        />
       )}
 
       <div>

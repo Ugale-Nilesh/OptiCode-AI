@@ -32,6 +32,8 @@ def run_analysis(request: AnalyzeRequest) -> AnalyzeResponse:
 
     assumptions = ["Deterministic analysis currently covers a limited rule set (e.g. nested loops)."]
     limitations = []
+    optimized_complexity = None
+    optimization_explanation = None
 
     if ai_result is not None:
         inferred_findings = ai_result.inferred_findings
@@ -41,6 +43,13 @@ def run_analysis(request: AnalyzeRequest) -> AnalyzeResponse:
         time_complexity = ai_result.time_complexity
         space_complexity = ai_result.space_complexity
         ai_summary_part = ai_result.code_summary
+        optimization_explanation = ai_result.optimization_explanation
+
+        if ai_result.optimized_time_complexity and ai_result.optimized_space_complexity:
+            optimized_complexity = Complexity(
+                time=ai_result.optimized_time_complexity,
+                space=ai_result.optimized_space_complexity,
+            )
     else:
         inferred_findings, suggestions, optimized_code, comparison = [], [], None, []
         time_complexity = ComplexityEstimate(value="Unknown", status=ResultStatus.unknown)
@@ -65,6 +74,8 @@ def run_analysis(request: AnalyzeRequest) -> AnalyzeResponse:
         complexity=Complexity(time=time_complexity, space=space_complexity),
         suggestions=suggestions,
         optimized_code=optimized_code,
+        optimized_complexity=optimized_complexity,
+        optimization_explanation=optimization_explanation,
         comparison=comparison,
         assumptions=assumptions,
         limitations=limitations,

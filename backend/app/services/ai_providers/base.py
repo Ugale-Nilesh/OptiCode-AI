@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 from app.schemas.analysis import Finding, Suggestion, ComplexityEstimate
 
 
@@ -13,8 +13,11 @@ class AIAnalysisResult:
         suggestions: List[Suggestion],
         time_complexity: ComplexityEstimate,
         space_complexity: ComplexityEstimate,
-        optimized_code: str | None,
+        optimized_code: Optional[str],
         comparison: List[str],
+        optimized_time_complexity: Optional[ComplexityEstimate] = None,
+        optimized_space_complexity: Optional[ComplexityEstimate] = None,
+        optimization_explanation: Optional[str] = None,
     ):
         self.code_summary = code_summary
         self.inferred_findings = inferred_findings
@@ -23,6 +26,9 @@ class AIAnalysisResult:
         self.space_complexity = space_complexity
         self.optimized_code = optimized_code
         self.comparison = comparison
+        self.optimized_time_complexity = optimized_time_complexity
+        self.optimized_space_complexity = optimized_space_complexity
+        self.optimization_explanation = optimization_explanation
 
 
 class AIProvider(ABC):
