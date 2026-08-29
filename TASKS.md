@@ -246,21 +246,21 @@ Allow users to compare original and optimized code.
 
 ## Tasks
 
-- [ ] Display original code.
-- [ ] Display optimized code.
-- [ ] Add side-by-side comparison.
-- [ ] Compare complexity estimates.
-- [ ] Display important changes.
-- [ ] Display optimization explanation.
+- [x] Display original code.
+- [x] Display optimized code.
+- [x] Add side-by-side comparison.
+- [x] Compare complexity estimates.
+- [x] Display important changes.
+- [x] Display optimization explanation.
 
 ## Acceptance Criteria
 
 The user can understand:
 
-- [ ] What changed.
-- [ ] Why it changed.
-- [ ] What improvement is expected.
-- [ ] What assumptions were made.
+- [x] What changed.
+- [x] Why it changed.
+- [x] What improvement is expected.
+- [x] What assumptions were made.
 
 ---
 
@@ -373,4 +373,4 @@ The project is:
 
 ### Current Next Task
 
-Milestone 6's Results Interface is complete - the UI now displays detected findings, AI-inferred findings, optimization suggestions, optimized code, and comparison, with full transparency status labeling. Next: begin Milestone 7 (Code Comparison) - a dedicated side-by-side original-vs-optimized view.
+Milestone 7's Code Comparison is complete - the UI shows original vs optimized code side-by-side, with a before/after complexity table and a clear optimization explanation. Next: begin Milestone 8 (Error Handling and Robustness) - harden AI output validation and cover the remaining failure cases (empty code, unsupported language, malformed input, AI provider failures, timeouts).
