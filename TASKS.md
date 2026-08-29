@@ -216,25 +216,25 @@ Create a clear interface for displaying analysis results.
 
 ## Tasks
 
-- [ ] Create analysis summary component.
-- [ ] Create complexity display.
-- [ ] Create detected findings section.
-- [ ] Create AI-inferred findings section.
-- [ ] Create optimization suggestions section.
-- [ ] Create assumptions section.
-- [ ] Create limitations section.
-- [ ] Add loading states.
-- [ ] Add error states.
+- [x] Create analysis summary component.
+- [x] Create complexity display.
+- [x] Create detected findings section.
+- [x] Create AI-inferred findings section.
+- [x] Create optimization suggestions section.
+- [x] Create assumptions section.
+- [x] Create limitations section.
+- [x] Add loading states.
+- [x] Add error states.
 
 ## Transparency Requirements
 
 The interface should distinguish between:
 
-- [ ] Detected.
-- [ ] AI-Inferred.
-- [ ] Estimated.
-- [ ] Unknown.
-- [ ] Not Measured.
+- [x] Detected.
+- [x] AI-Inferred.
+- [x] Estimated.
+- [x] Unknown.
+- [x] Not Measured.
 
 ---
 
@@ -373,4 +373,4 @@ The project is:
 
 ### Current Next Task
 
-Milestone 5's AI reasoning layer (Google Gemini) is live and working end-to-end. Deeper AI-output validation and trade-off explanations are deferred to Milestone 8 (Robustness). Next: begin Milestone 6 - build the Results Interface to display inferred findings, suggestions, optimized code, and comparison in the frontend.
+Milestone 6's Results Interface is complete - the UI now displays detected findings, AI-inferred findings, optimization suggestions, optimized code, and comparison, with full transparency status labeling. Next: begin Milestone 7 (Code Comparison) - a dedicated side-by-side original-vs-optimized view.
