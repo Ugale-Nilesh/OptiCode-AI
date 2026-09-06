@@ -298,30 +298,30 @@ Verify the system using representative examples.
 
 ## Python Cases
 
-- [ ] Inefficient nested loops.
-- [ ] Repeated calculations.
-- [ ] Search optimization opportunities.
+- [x] Inefficient nested loops.
+- [x] Repeated calculations.
+- [x] Search optimization opportunities.
 
 ## C++ Cases
 
-- [ ] Inefficient nested loops.
-- [ ] Algorithmic improvements.
-- [ ] Appropriate STL alternatives where relevant.
+- [x] Inefficient nested loops.
+- [x] Algorithmic improvements.
+- [x] Appropriate STL alternatives where relevant.
 
 ## Java Cases
 
-- [ ] Inefficient collection usage.
-- [ ] Nested loops.
-- [ ] Algorithmic improvements.
+- [x] Inefficient collection usage.
+- [x] Nested loops.
+- [x] Algorithmic improvements.
 
 ## Testing
 
-- [ ] Test deterministic analyzers.
-- [ ] Test API validation.
-- [ ] Test API responses.
-- [ ] Test frontend-backend flow.
-- [ ] Test AI response validation.
-- [ ] Test representative examples for all languages.
+- [x] Test deterministic analyzers.
+- [x] Test API validation.
+- [x] Test API responses.
+- [x] Test frontend-backend flow.
+- [x] Test AI response validation.
+- [x] Test representative examples for all languages.
 
 ---
 
@@ -373,4 +373,4 @@ The project is:
 
 ### Current Next Task
 
-Milestone 8's robustness hardening is complete: global exception handler, analyzer error fallback, and request timeouts (backend + frontend) all verified via live tests. Next: begin Milestone 9 (Testing and Demonstration Cases).
+Milestone 9's representative test cases verified across all 3 languages (nested loops, repeated calculations/algorithmic improvements, search optimization, STL alternatives, collection usage) via live API and frontend tests. Next: begin Milestone 10 (Final Polish and Demo Preparation).
