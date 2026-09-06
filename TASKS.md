@@ -272,21 +272,21 @@ Improve reliability and user experience when failures occur.
 
 ## Cases
 
-- [ ] Empty code.
-- [ ] Unsupported language.
-- [ ] Invalid request.
-- [ ] Malformed input.
-- [ ] Backend failure.
-- [ ] AI provider failure.
-- [ ] Invalid AI response.
-- [ ] Analysis failure.
-- [ ] Request timeout.
+- [x] Empty code.
+- [x] Unsupported language.
+- [x] Invalid request.
+- [x] Malformed input.
+- [x] Backend failure.
+- [x] AI provider failure.
+- [x] Invalid AI response.
+- [x] Analysis failure.
+- [x] Request timeout.
 
 ## Acceptance Criteria
 
-- [ ] Application does not expose raw internal errors to users.
-- [ ] User receives understandable error messages.
-- [ ] Application handles failures without unnecessary crashes.
+- [x] Application does not expose raw internal errors to users.
+- [x] User receives understandable error messages.
+- [x] Application handles failures without unnecessary crashes.
 
 ---
 
@@ -373,4 +373,4 @@ The project is:
 
 ### Current Next Task
 
-Milestone 7's Code Comparison is complete - the UI shows original vs optimized code side-by-side, with a before/after complexity table and a clear optimization explanation. Next: begin Milestone 8 (Error Handling and Robustness) - harden AI output validation and cover the remaining failure cases (empty code, unsupported language, malformed input, AI provider failures, timeouts).
+Milestone 8's robustness hardening is complete: global exception handler, analyzer error fallback, and request timeouts (backend + frontend) all verified via live tests. Next: begin Milestone 9 (Testing and Demonstration Cases).
