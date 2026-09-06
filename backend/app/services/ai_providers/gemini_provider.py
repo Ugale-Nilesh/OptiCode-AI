@@ -81,7 +81,10 @@ Respond only with JSON matching the provided schema."""
 
 class GeminiProvider(AIProvider):
     def __init__(self):
-        self._client = genai.Client(api_key=GEMINI_API_KEY)
+        self._client = genai.Client(
+            api_key=GEMINI_API_KEY,
+            http_options=types.HttpOptions(timeout=25000),  # 25s; SDK-level enforcement is not fully reliable, see D-018 implementation notes.
+        )
 
     def analyze(
         self,

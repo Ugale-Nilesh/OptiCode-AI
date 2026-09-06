@@ -22,16 +22,27 @@ def run_analysis(request: AnalyzeRequest) -> AnalyzeResponse:
     if analyzer is None:
         raise HTTPException(status_code=400, detail=f"Unsupported language: {request.language}")
 
-    validation_error = analyzer.validate(request.code)
+    try:
+        validation_error = analyzer.validate(request.code)
+    except Exception as exc:
+        print(f"Analyzer validate() failed for {request.language.value}: {exc.__class__.__name__}: {exc}")
+        validation_error = None  # Fall through to analysis rather than blocking the request.
+
     if validation_error:
         raise HTTPException(status_code=422, detail=validation_error)
 
-    detected_findings = analyzer.analyze(request.code)
+    assumptions = ["Deterministic analysis currently covers a limited rule set (e.g. nested loops)."]
+    limitations = []
+
+    try:
+        detected_findings = analyzer.analyze(request.code)
+    except Exception as exc:
+        print(f"Analyzer analyze() failed for {request.language.value}: {exc.__class__.__name__}: {exc}")
+        detected_findings = []
+        limitations.append("Deterministic analysis was skipped due to an internal error with this input.")
 
     ai_result, ai_limitation = get_ai_analysis(request.code, request.language.value, detected_findings)
 
-    assumptions = ["Deterministic analysis currently covers a limited rule set (e.g. nested loops)."]
-    limitations = []
     optimized_complexity = None
     optimization_explanation = None
 
