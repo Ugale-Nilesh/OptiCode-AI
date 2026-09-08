@@ -31,7 +31,7 @@ export function CodeComparison({
     <div>
       <h3 className="font-semibold text-sm text-gray-700 mb-2">Code Comparison</h3>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <p className="text-xs font-medium text-gray-500 mb-1">Original</p>
           <pre className="text-xs bg-gray-900 text-gray-100 rounded-md p-3 overflow-x-auto max-h-72">

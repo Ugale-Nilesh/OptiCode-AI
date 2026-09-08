@@ -63,7 +63,7 @@ export function ResultsPanel({ result, originalCode }: Props) {
         <p className="text-sm text-gray-800">{result.summary}</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <h3 className="font-semibold text-sm text-gray-700">Time Complexity</h3>
           <p className="text-sm">
