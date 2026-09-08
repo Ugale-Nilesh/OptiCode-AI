@@ -178,21 +178,68 @@ For more details, see `ARCHITECTURE.md`.
 
 ## Project Structure
 
-The initial project structure is:
+The current project structure is:
 
 ```text
 OptiCode-AI/
-│
-├── README.md
-├── PROJECT_SPEC.md
-├── ARCHITECTURE.md
-├── TASKS.md
-├── DECISIONS.md
-├── CONTRIBUTING.md
-└── .gitignore
+  backend/
+    app/
+      analyzers/       # Language-specific deterministic analyzers (Python, C++, Java)
+      api/             # FastAPI routes
+      core/            # Configuration (env vars)
+      schemas/         # Pydantic request/response models
+      services/        # Analysis orchestration and AI provider integration
+    requirements.txt
+    .env.example
+  frontend/
+    src/
+      api/             # Backend API client
+      components/      # React components
+      types/           # TypeScript types
+    package.json
+  README.md
+  PROJECT_SPEC.md
+  ARCHITECTURE.md
+  TASKS.md
+  DECISIONS.md
+  CONTRIBUTING.md
+  .gitignore
 ```
 
-The implementation directories will be added during development.
+## Getting Started
+
+### Prerequisites
+
+- Python 3.11+
+- Node.js 18+
+- A free Google Gemini API key from https://aistudio.google.com/apikey
+
+### Backend Setup
+
+```bash
+cd backend
+python -m venv .venv
+.venv\Scripts\Activate.ps1   # Windows PowerShell
+pip install -r requirements.txt
+
+# Create a .env file (see .env.example) and set:
+# GEMINI_API_KEY=your-key-here
+# GEMINI_MODEL=gemini-3.5-flash-lite
+
+uvicorn app.main:app --reload --port 8000
+```
+
+The backend runs at http://localhost:8000. Check http://localhost:8000/api/health to confirm it started correctly.
+
+### Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend runs at http://localhost:5173.
 
 ---
 
@@ -304,11 +351,11 @@ For contribution and development rules, see `CONTRIBUTING.md`.
 
 ## Current Status
 
-The project is currently in the **Repository Foundation** phase.
+The project has completed 9 of its 10 planned milestones.
 
-The product scope, architecture, development roadmap, and major technical decisions have been defined.
+The full pipeline is functional end-to-end: frontend code input, deterministic analysis for Python/C++/Java, AI-powered reasoning via Google Gemini, transparent results, side-by-side code comparison, and error-handling robustness are all implemented and tested.
 
-Implementation has not yet started.
+Only Milestone 10 (Final Polish and Demo Preparation) remains. See `TASKS.md` for the detailed, current status of every task.
 
 ---
 
