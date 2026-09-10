@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Sparkles } from "lucide-react";
 import { LanguageSelector } from "./components/LanguageSelector";
 import { CodeEditor } from "./components/CodeEditor";
 import { ResultsPanel } from "./components/ResultsPanel";
@@ -30,15 +31,20 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-gray-900">
       <div className="max-w-3xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold mb-1">OptiCode AI</h1>
-        <p className="text-sm text-gray-500 mb-6">
-          Explainable code analysis and optimization - MVP skeleton.
+        <div className="flex items-center gap-2 mb-1">
+          <div className="bg-black text-white rounded-lg p-1.5">
+            <Sparkles size={18} />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight">OptiCode AI</h1>
+        </div>
+        <p className="text-sm text-gray-500 mb-8">
+          Explainable code analysis and optimization for Python, C++, and Java.
         </p>
 
         <div className="flex items-center justify-between mb-2">
-          <label className="text-sm font-medium text-gray-700">Code</label>
+          <label className="text-sm font-semibold text-gray-800">Code</label>
           <LanguageSelector value={language} onChange={setLanguage} />
         </div>
 
@@ -47,13 +53,13 @@ export default function App() {
         <button
           onClick={handleAnalyze}
           disabled={loading}
-          className="mt-4 bg-black text-white text-sm font-medium px-4 py-2 rounded-md disabled:opacity-50"
+          className="mt-4 bg-black hover:bg-gray-800 active:bg-gray-900 transition-colors text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Analyzing..." : "Analyze"}
         </button>
 
         {error && (
-          <p className="mt-4 text-sm text-red-600 border border-red-200 bg-red-50 rounded-md p-3">
+          <p className="mt-4 text-sm text-red-700 border border-red-200 bg-red-50 rounded-lg px-4 py-3">
             {error}
           </p>
         )}
@@ -63,4 +69,3 @@ export default function App() {
     </div>
   );
 }
-
