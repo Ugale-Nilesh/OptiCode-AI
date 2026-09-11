@@ -2,6 +2,9 @@
 
 > An explainable AI-powered code analysis and optimization assistant for Python, C++, and Java.
 
+**Live app:** https://opti-code-ai-beige.vercel.app
+(Backend runs on a free tier and may take 30-60 seconds to respond on the first request after a period of inactivity.)
+
 OptiCode AI helps developers understand their code, identify potential inefficiencies, explore optimization opportunities, and compare original implementations with improved alternatives.
 
 The project focuses on an important question:
@@ -240,6 +243,46 @@ npm run dev
 ```
 
 The frontend runs at http://localhost:5173.
+
+## Example Inputs
+
+Paste any of these into the live app to see a representative result.
+
+**Python — nested loop:**
+```python
+def find_max(numbers):
+    result = []
+    for i in range(len(numbers)):
+        for j in range(len(numbers)):
+            if numbers[j] > numbers[i]:
+                break
+        else:
+            result.append(numbers[i])
+    return result
+```
+
+**C++ — pass-by-value / STL alternative:**
+```cpp
+bool contains(std::vector<int> items, int target) {
+    for (int i = 0; i < items.size(); i++) {
+        if (items[i] == target) {
+            return true;
+        }
+    }
+    return false;
+}
+```
+
+**Java — string concatenation in a loop:**
+```java
+public String buildMessage(String[] words) {
+    String result = "";
+    for (String word : words) {
+        result = result + word + " ";
+    }
+    return result;
+}
+```
 
 ---
 

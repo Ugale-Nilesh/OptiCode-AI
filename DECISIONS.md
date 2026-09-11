@@ -461,3 +461,26 @@ The project has a strict budget of zero cost for the MVP. Gemini's Flash and Fla
 ### Status
 
 Accepted.
+
+
+---
+
+## D-019 — Deployment: Vercel (Frontend) + Render (Backend)
+
+### Decision
+
+The frontend is deployed to Vercel and the backend to Render, both on their free tiers, consistent with the project's zero-cost MVP requirement (see D-018).
+
+### Reason
+
+Both platforms auto-deploy from the `main` branch on GitHub with no manual build steps, and both have genuinely free tiers suitable for a demo-stage MVP.
+
+### Implementation Notes
+
+- Backend CORS origins are configurable via the `ALLOWED_ORIGINS` environment variable (comma-separated) rather than hardcoded, so the allowed frontend domain can be set per environment without a code change.
+- The frontend reads the backend URL via the `VITE_API_BASE_URL` build-time environment variable.
+- Known limitation: Render's free tier spins down after 15 minutes of inactivity; the first request after idle takes roughly 30-60 seconds to respond while the instance wakes up. This is accepted as a reasonable tradeoff for a free-tier MVP.
+
+### Status
+
+Accepted.
